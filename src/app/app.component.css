@@ -1,0 +1,52 @@
+p {
+  font-family: Lato;
+}
+.pointer {
+  cursor: pointer; /* Mouse pointer on hover */
+}
+.pointer:hover {
+  background-color: whitesmoke;
+}
+/* Style buttons */
+.btn {
+  background-color: DodgerBlue; /* Blue background */
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 5px 5px; /* Some padding */
+  font-size: 12px; /* Set a font size */
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+.table-border {
+  font-family: Arial, Helvetica, sans-serif;
+  border-style: solid;
+  border-color: rgb(0, 128, 192);
+  border-width: thick;
+  width: 60vh;
+}
+
+.td-col {
+  color: black;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.th-col-center {
+  text-align: right;
+}
+
+.positive {
+  color: green;
+  font-size: small;
+  font-weight: bold;
+}
+
+.negative {
+  color: red;
+  font-size: small;
+  font-weight: bold;
+}

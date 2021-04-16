@@ -1,0 +1,70 @@
+<div class="container">
+  <h2 class="py-4">Account Information.</h2>
+  <h6 class="text-secondary small">*Sorting and Filtering is enabled</h6>
+
+  <div class="form-group mb-2">
+    <button
+      class="btn mb-2 small"
+      (click)="displayNewColumn()"
+      *ngIf="!addedNewCol"
+    >
+      <i class="fa fa-plus"> Add User column</i>
+    </button>
+    <button
+      class="btn mb-2 ml-2 small"
+      *ngIf="addedNewCol"
+      (click)="displayNewColumn()"
+    >
+      <i class="fa fa-minus"> Remove User column</i>
+    </button>
+    <input
+      class="form-control w-75"
+      type="text"
+      [(ngModel)]="searchText"
+      placeholder="Search by Account, Name or Available Cash"
+    />
+  </div>
+
+  <table class="table table-hover table-border" *ngIf="(balances | filter: searchText).length > 0; else noResults">
+    <colgroup>
+      <col width="25%" />
+      <col width="35%" />
+      <col width="20%" *ngIf="addedNewCol" />
+    </colgroup>
+    <thead class="table-active">
+      <tr>
+        <th class="pointer" scope="col" (click)="sort('acctNum')">Account</th>
+        <th class="pointer th-col-center" scope="col" (click)="sort('balance')">
+          Available Cash<br />
+          <h6 class="h6 text-secondary font-italic">Today's change</h6>
+        </th>
+        <th *ngIf="addedNewCol" class="pointer" scope="col" (click)="sort('user')">
+          User
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let accountData of balances | slice: 0:show | filter: searchText; let i = index">
+        <td class="text-primary"><b>{{accountData.acctNum}}</b></td>
+        <td class="td-col th-col-center">
+          {{ accountData.balance | currency}}
+          <br>
+          <span [ngClass]="{
+            'positive' : accountData.percent > 0,
+            'negative' : accountData.percent < 0
+         }">{{accountData.percent}}% / {{accountData.totalAmount | currency}} </span>
+        </td>
+        <td *ngIf="addedNewCol" class="text-dark">{{getKeyValuePair(accountData.acctNum)}}</td>
+      </tr>
+      <tr align="center">
+        <td colspan="2" class="pointer"><a class="text-primary align-center" *ngIf="show == 3"
+            (click)="show = balances.length"><b> Load More</b></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noResults>
+    <p class="text-danger">No results found for "{{searchText}}".</p>
+  </ng-template>
+</div>
